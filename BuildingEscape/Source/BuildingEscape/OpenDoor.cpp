@@ -20,14 +20,15 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	AActor *Owner{ GetOwner()};
-
-	FRotator NewRotation{ 0.f ,70.f ,0.f };
-
-	Owner->SetActorRotation(NewRotation);
 	
-	
+	GetOwner()->SetActorRotation(FRotator(0.f, 70.f, 0.f));
+
+	/***************************************************/
+	/*********** Lo mismo pero con variables ***********/
+	/***************************************************/
+	//AActor *Owner{ GetOwner()};
+	//FRotator NewRotation{ 0.f ,70.f ,0.f };
+	//Owner->SetActorRotation(NewRotation);
 }
 
 
