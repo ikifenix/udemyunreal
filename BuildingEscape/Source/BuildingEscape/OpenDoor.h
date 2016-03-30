@@ -37,9 +37,9 @@ private:
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate;
 
-	UPROPERTY(VisibleAnywhere)
-		AActor* ActorThatOpens;		//Remember pawn inherits from actor
-
+//	UPROPERTY(VisibleAnywhere)
+	
+	AActor* ActorThatOpens;		//Remember pawn inherits from actor
 	float LastDoorOpenTime;
 
 };
