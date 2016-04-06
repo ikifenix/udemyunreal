@@ -21,8 +21,20 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
+	// Called when grab is pressed
 	void Grab();
+
+	// Called when grab is released
 	void Release();
+	
+	// Find attached Physics Handle Component
+	void FindPhysicsHandleComponent();	
+	
+	// Setup attached Input Component
+	void SetupInputComponent();
+
+	// Return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
 
 private:
 	float Reach = 100.f;
