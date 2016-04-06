@@ -21,13 +21,46 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
 	FString ObjectName{ GetOwner()->GetName() };
 	//	FString ObjectPos{ GetOwner()->GetActorLocation().ToString() };
 	FString ObjectPos{ GetOwner()->GetTransform().GetLocation().ToString() };
 	UE_LOG(LogTemp, Warning, TEXT("%s is at position: %s reporting for dutty"), *ObjectName, *ObjectPos);
+
+	///Look for Attached physics handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Object: %s has a physics handle"), *(GetOwner()->GetName()))
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't a physics handle component"), *(GetOwner()->GetName()))
+	}
+
+	///Look for Attached input component
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		///bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't an input component"), *(GetOwner()->GetName()))
+	}
+
 }
 
+void UGrabber::Grab(){
+	UE_LOG(LogTemp, Warning, TEXT("Grab key pressed"))
+
+}
+
+void UGrabber::Release() {
+	UE_LOG(LogTemp, Warning, TEXT("Grab key released"))
+
+}
 
 // Called every frame
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
@@ -54,7 +87,6 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	);
 	
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
-
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByObjectType(
 		Hit,
