@@ -36,6 +36,11 @@ public:
 	// Return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
 
+	// Calculate the end point of the Trace Line
+	FVector GetReachLineEnd();
+
+	// Calculate the start point of the Trace Line
+	FVector GetReachLineStart();
 private:
 	float Reach = 100.f;
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
