@@ -19,7 +19,10 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No PressurePlate assigned to: %s"), *GetOwner()->GetName());
+	}
 	// ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();		//player character
 }
 
@@ -59,10 +62,8 @@ float UOpenDoor::GetTotalWeightOnPresurePlate()
 //	FString ObjectName;
 	if (!PressurePlate) 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No PressurePlate assigned to: %s"), *GetOwner()->GetName());
 		return 0;
 	}
-	
 	PressurePlate->GetOverlappingActors(MeshesOnPresurePlate);
 
 	for (const auto& MeshesOverlaping : MeshesOnPresurePlate)

@@ -24,10 +24,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	// if the physics handle is attached
-	if (!PhysicsHandle) { 
-		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't a physics handle component"), *(GetOwner()->GetName()))
-		return; 
-	}
+	if (!PhysicsHandle) { return; }
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		// move the object that we are holding
