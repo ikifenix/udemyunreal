@@ -37,9 +37,14 @@ private:
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* PressurePlate;
 
-//	UPROPERTY(VisibleAnywhere)
-	
-	AActor* ActorThatOpens;		//Remember pawn inherits from actor
-	float LastDoorOpenTime;
+	UPROPERTY(EditAnywhere)
+		float WeightToTriggeresurePlate = 20.f;
 
+
+	float GetTotalWeightOnPresurePlate();
+	
+	//	UPROPERTY(VisibleAnywhere)
+	
+	//AActor* ActorThatOpens;		//Remember pawn inherits from actor
+	float LastDoorOpenTime;
 };

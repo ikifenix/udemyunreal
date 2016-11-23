@@ -20,7 +20,7 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();		//player character
+	// ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();		//player character
 }
 
 void UOpenDoor::OpenDoor()
@@ -40,7 +40,7 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// Poll the trigger volume if the actorthatopens is in the volume
-	if (PressurePlate->IsOverlappingActor(ActorThatOpens))
+	if (GetTotalWeightOnPresurePlate() > WeightToTriggeresurePlate)
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();		//save the current time in seconds
@@ -50,5 +50,27 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 		CloseDoor();
 	}
 }
+
+
+float UOpenDoor::GetTotalWeightOnPresurePlate()
+{
+	TArray<AActor*> MeshesOnPresurePlate;
+	float ActualWeight = 0.f;
+//	FString ObjectName;
+
+	PressurePlate->GetOverlappingActors(MeshesOnPresurePlate);
+
+	for (const auto& MeshesOverlaping : MeshesOnPresurePlate)
+	{
+//		ObjectName = MeshesOverlaping->GetName();
+		ActualWeight += MeshesOverlaping->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	}
+
+//	ObjectName = FString::SanitizeFloat(ActualWeight);
+//	UE_LOG(LogTemp, Warning, TEXT("%s Total mass"), *ObjectName);
+
+	return ActualWeight;
+}
+
 
 
