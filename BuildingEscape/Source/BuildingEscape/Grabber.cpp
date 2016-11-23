@@ -24,6 +24,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	// if the physics handle is attached
+	if (!PhysicsHandle) { 
+		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't a physics handle component"), *(GetOwner()->GetName()))
+		return; 
+	}
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		// move the object that we are holding
@@ -42,6 +46,7 @@ void UGrabber::Grab() {
 	/// If we hit something, then attach a physics handle
 	if (ActorHit != nullptr)	
 	{
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponentAtLocationWithRotation(
 			ComponentToGrab,
 			NAME_None,		// no bones neeeded
@@ -53,15 +58,17 @@ void UGrabber::Grab() {
 
 // Called when grab is released
 void UGrabber::Release() {
+	if (!PhysicsHandle) return;
 	PhysicsHandle->ReleaseComponent();
 }
 
 // Look for Attached physics handle
 void UGrabber::FindPhysicsHandleComponent() {
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle == nullptr)
+	if (!PhysicsHandle)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't a physics handle component"), *(GetOwner()->GetName()))
+			return;
 	}
 }
 
@@ -77,6 +84,7 @@ void UGrabber::SetupInputComponent() {
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Object: %s hasn't an input component"), *(GetOwner()->GetName()))
+			return;
 	}
 }
 

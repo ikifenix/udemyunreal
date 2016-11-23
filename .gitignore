@@ -3,6 +3,8 @@
 */Build/
 */Intermediate/
 */Saved/
+*/ipch/
 BuildingEscape/Content/StarterContent/
 *.db
 *.opendb
+BuildingEscape/ipch/

@@ -35,7 +35,7 @@ private:
 		float DelayToCloseDoor = 0.45f;
 
 	UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate;
+		ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 		float WeightToTriggeresurePlate = 20.f;
@@ -46,5 +46,5 @@ private:
 	//	UPROPERTY(VisibleAnywhere)
 	
 	//AActor* ActorThatOpens;		//Remember pawn inherits from actor
-	float LastDoorOpenTime;
+	float LastDoorOpenTime = 0.f;
 };
