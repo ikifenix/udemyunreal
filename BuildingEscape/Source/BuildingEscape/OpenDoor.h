@@ -33,11 +33,6 @@ public:
 		FCallDoorEvent CloseTheDoor;
 
 private:
-	UPROPERTY(EditAnywhere)
-		float OpenAngle = 90.f;
-
-	UPROPERTY(EditAnywhere)
-		float CloseAngle = 0.f;
 
 	UPROPERTY(EditAnywhere)
 		float DelayToCloseDoor = 0.45f;
