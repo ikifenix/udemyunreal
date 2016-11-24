@@ -28,12 +28,14 @@ void UOpenDoor::BeginPlay()
 
 void UOpenDoor::OpenDoor()
 {
-	GetOwner()->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
+	//GetOwner()->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
+	HoldTheDoor.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
 {
-	GetOwner()->SetActorRotation(FRotator(0.f, CloseAngle, 0.f));
+	//GetOwner()->SetActorRotation(FRotator(0.f, CloseAngle, 0.f));
+	CloseTheDoor.Broadcast();
 }
 
 
